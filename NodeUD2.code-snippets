@@ -248,5 +248,66 @@
     "body": [
       "console.log($1);"
     ],
+  },
+  "endpointGet": {
+    "prefix": "endpointGet",
+    "body": [
+      "const ${1:funcName} = async () => {",
+      "    try {",
+      "        const response = await fetch(\"${2:./ruta/endpoint.php}?${3:clave}=${4:valor}\");",
+      "",
+      "        if (!response.ok) {",
+      "            throw new Error(`Error: ${response.status}`);",
+      "        }",
+      "",
+      "        const data = await response.text();",
+      "        msg.textContent = data;",
+      "",
+      "    } catch (error) {",
+      "        console.error(error);",
+      "    }",
+      "};"
+    ],
+  },
+  "endpointPost": {
+    "prefix": "endpointPost",
+    "body": [
+      "const ${1:funcName} = async () => {",
+      "    try {",
+      "        const response = await fetch(\"${2:./ruta/endpoint.php}\", {",
+      "            method: \"POST\",",
+      "            headers: {",
+      "                \"Content-Type\": \"application/x-www-form-urlencoded\"",
+      "            },",
+      "            body: \"${3:clave}=\\${4:valor}\"",
+      "        });",
+      "",
+      "        if (!response.ok) {",
+      "            throw new Error(`Error: ${response.status}`);",
+      "        }",
+      "",
+      "        const data = await response.text();",
+      "        msg.textContent = data;",
+      "",
+      "    } catch (error) {",
+      "        console.error(error);",
+      "    }",
+      "};"
+    ],
+  },
+  "moduleInitPattern": {
+    "prefix": "modulePattern",
+    "body": [
+      "const ${1:ModuleName} = (() => {",
+      "",
+      "    const init = () => {",
+      "        ${2:// Lógica de inicialización}",
+      "    };",
+      "",
+      "    return { init };",
+      "})();",
+      "",
+      "${1:ModuleName}.init();"
+    ],
   }
 }
