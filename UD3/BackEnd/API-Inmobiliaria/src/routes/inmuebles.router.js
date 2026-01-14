@@ -14,9 +14,9 @@ router.get("/inmuebles/buscar", X.getInmueble);
 
 router.post("/inmuebles", X.postInmueble);
 
-router.put("/inmuebles/:id", X.updateInmueblse);
+router.put("/inmuebles/:id", X.putInmueble);
 
-router.patch("/inmuebles/:id", X.patchInmuebles);
+router.patch("/inmuebles/:id", X.patchInmueble);
 
 router.delete("/inmuebles/:id", X.deleteInmueble);
 

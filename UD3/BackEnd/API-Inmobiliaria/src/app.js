@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import { routerZona } from './routes/zonas.router.js';
 import { routerInmuebles } from './routes/inmuebles.router.js';
+import { routerReserva } from './routes/reservar.router.js';
 
 
 config();
@@ -26,7 +27,7 @@ app.use(express.json());
 
 app.use('/api', routerZona);
 app.use('/api', routerInmuebles);
-// app.use('/api', );
+app.use('/api', routerReserva);
 
 app.get("/", (req, res) =>{
     res.json({
