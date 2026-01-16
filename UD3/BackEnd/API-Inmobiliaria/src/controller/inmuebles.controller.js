@@ -3,16 +3,33 @@ import { pool } from '../data/db.js';
 
 export const getInmuebles = async (req, res) => {
     try {
-        const result = await pool.query("SELECT * FROM inmuebles");
-        if (result.length == 0) {
-            res.status(400).json({ data: [], message: "No hay inmuebles registrados" });
+        const { zona, precioMin, precioMax } = req.query;
+
+        let query = "SELECT * FROM inmuebles";
+        const params = [];
+
+        // Si vienen los 3 filtros, aplicamos búsqueda filtrada
+        if (zona && precioMin && precioMax) {
+            query += " WHERE zona = ? AND precio >= ? AND precio <= ?";
+            params.push(zona, precioMin, precioMax);
         }
-        console.log(result);
+
+        const [result] = await pool.query(query, params);
+
+        if (result.length === 0) {
+            return res.status(400).json({
+                data: [],
+                message: "No hay inmuebles que coincidan con la búsqueda"
+            });
+        }
+
         res.status(200).json({ data: result });
+
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: "Error al obtener inmuebles" });
     }
-}
+};
 
 export const getInmueble = async (req, res) => {
     try {
@@ -22,21 +39,6 @@ export const getInmueble = async (req, res) => {
             res.status(400).json({ data: [], message: "No existe un inmueble registrados con ese id" });
         }
         console.log(result);
-        res.status(200).json({ data: result });
-    } catch (error) {
-        res.status(500).json({ message: "Error al obtener inmuebles" });
-    }
-}
-
-export const getInmuebleZonas = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const [result] = await pool.query("SELECT * FROM inmuebles WHERE zona = ?", [id]);
-        if (result.length == 0) {
-            res.status(400).json({ data: [], message: "No existe un inmueble registrados con ese id" });
-        }
-        console.log(result);
-
         res.status(200).json({ data: result });
     } catch (error) {
         res.status(500).json({ message: "Error al obtener inmuebles" });

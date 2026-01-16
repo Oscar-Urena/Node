@@ -27,8 +27,24 @@ export const getReserva = async (req, res) => {
     }
 }
 
-export const postReserva = async (req, res) => {}
+export const postReserva = async (req, res) => {
+    try {
+        const { dni, inmueble } = req.body;
 
-export const putReserva = async (req, res) => {}
+        const [result] = await pool.query(
+            "INSERT INTO reservas (dni, idinmueble, fecha) VALUES (?, ?, CURDATE())",
+            [dni, inmueble]
+        );
 
-export const deleteReserva = async (req, res) => {}
+        console.log(result);
+        res.status(200).json({ data: result });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
+export const putReserva = async (req, res) => { }
+
+export const deleteReserva = async (req, res) => { }

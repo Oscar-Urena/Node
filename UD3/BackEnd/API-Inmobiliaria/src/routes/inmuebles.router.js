@@ -8,8 +8,6 @@ router.get("/inmuebles", X.getInmuebles);
 
 router.get("/inmuebles/:id", X.getInmueble);
 
-router.get("/inmuebles/zona/:id", X.getInmuebleZonas);
-
 router.get("/inmuebles/buscar", X.getInmueble);
 
 router.post("/inmuebles", X.postInmueble);
