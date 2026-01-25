@@ -301,13 +301,99 @@
       "const ${1:ModuleName} = (() => {",
       "",
       "    const init = () => {",
-      "        ${2:// Lógica de inicialización}",
+      "        document.addEventListener(\"DOMContentLoaded\", () => {",
+      "           establecerObjetos()",
+      "           establecerEventos();",
+      "         }",
+      "",
       "    };",
       "",
+      "     const establecerObjetos =()=>{",
+      "",
+      "     }",
+      "",
+      "     const establecerEventos =()=>{",
+      "",
+      "     }",
       "    return { init };",
       "})();",
       "",
       "${1:ModuleName}.init();"
     ],
+  },
+  "Fetch API con try-catch": {
+    "prefix": "GETCRUD",
+    "body": [
+      "try {",
+      "    const response = await fetch(${1:url});",
+      "    if (!response.ok) {",
+      "        throw new Error(`Error del servidor: \\${response.status} \\${response.statusText}`);",
+      "    }",
+      "    return await response.json();",
+      "} catch (error) {",
+      "    throw new Error(`\\${error}`);",
+      "}"
+    ],
+    "description": "Fetch API con manejo de errores try-catch"
+  },
+  "Fetch POST con try-catch": {
+    "prefix": "POSTCRUD",
+    "body": [
+      "try {",
+      "    const response = await fetch(${1:url}, {",
+      "        method: \"POST\",",
+      "        body: JSON.stringify(${2:data}),",
+      "        headers: {",
+      "            'Content-Type': 'application/json'",
+      "        },",
+      "    });",
+      "    if (!response.ok) {",
+      "        throw new Error(`Error del servidor: \\${response.status} \\${response.statusText}`);",
+      "    }",
+      "    return await response.json();",
+      "} catch (error) {",
+      "    throw new Error(`\\${error}`);",
+      "}"
+    ],
+    "description": "Fetch POST con JSON y manejo de errores"
+  },
+  "Fetch DELETE con try-catch": {
+    "prefix": "DELETECRUD",
+    "body": [
+      "try {",
+      "    const response = await fetch(`\\${${1:url}}/\\${${2:id}}`, {",
+      "        method: \"DELETE\",",
+      "    });",
+      "    if (!response.ok) {",
+      "        throw new Error(`Error del servidor: \\${response.status} \\${response.statusText}`);",
+      "    }",
+      "    return await response.json();",
+      "} catch (error) {",
+      "    throw new Error(`\\${error}`);",
+      "}"
+    ],
+    "description": "Fetch DELETE con ID y manejo de errores"
+  },
+  "Fetch PUT con try-catch": {
+    "prefix": "PUTCRUD",
+    "body": [
+      "const {${1:id}, ...${2:datos}} = ${3:objeto};",
+      "try {",
+      "    const response = await fetch(`\\${${4:url}}/\\${${1:id}}`, {",
+      "        method: \"PUT\",",
+      "        body: JSON.stringify(${2:datos}),",
+      "        headers: {",
+      "            'Content-Type': 'application/json'",
+      "        }",
+      "    });",
+      "    if (!response.ok) {",
+      "        throw new Error(`Error del servidor: \\${response.status} \\${response.statusText}`);",
+      "    }",
+      "    return await response.json();",
+      "} catch (error) {",
+      "    throw new Error(`\\${error}`);",
+      "}"
+    ],
+    "description": "Fetch PUT con destructuring, JSON y manejo de errores"
   }
 }
