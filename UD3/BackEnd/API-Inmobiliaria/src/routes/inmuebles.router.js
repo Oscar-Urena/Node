@@ -1,6 +1,7 @@
 "use strict";
 import { Router } from "express";
 import * as X from "../controller/inmuebles.controller.js";
+import { validarInmueble, manejarErroresValidacion } from "../validators/inmuebles.validator.js";
 
 const router = Router();
 
@@ -10,9 +11,9 @@ router.get("/inmuebles/:id", X.getInmueble);
 
 router.get("/inmuebles/buscar", X.getInmueble);
 
-router.post("/inmuebles", X.postInmueble);
+router.post("/inmuebles", validarInmueble, manejarErroresValidacion ,X.postInmueble);
 
-router.put("/inmuebles/:id", X.putInmueble);
+router.put("/inmuebles/:id", validarInmueble, manejarErroresValidacion , X.putInmueble);
 
 router.patch("/inmuebles/:id", X.patchInmueble);
 
