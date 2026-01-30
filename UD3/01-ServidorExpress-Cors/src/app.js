@@ -2,22 +2,23 @@
 
 import express from "express";
 import cors from "cors";
-import {config} from "dotenv";
+//import {config} from "dotenv";
 import { routerCursos } from "./routes/cursos.routes.js";
 import { routerModulos } from "./routes/modulos.routes.js";
 import { routerAlumnos } from "./routes/alumnos.routes.js";
 import { routerCalificaciones } from "./routes/calificaciones.routes.js";
+import { PORT } from "./config.js";
 
-config();
+//config();
 
+const server = express();
 
-const port = process.env.PORT ||3000;
+//const port = process.env.PORT ||3000;
 const optCors = {
   methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }
-// crear el servidor
-const server = express();
 
 server.use(cors(optCors));
 
@@ -39,6 +40,6 @@ server.use((req, res)=>{
 });
 
 
-server.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
+server.listen(PORT, () => {
+  console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
