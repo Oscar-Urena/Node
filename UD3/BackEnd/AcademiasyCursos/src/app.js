@@ -4,6 +4,8 @@ import cors from 'cors';
 
 
 import {PORT} from './config.js'
+import { routerAcademias } from './router/academia.router.js';
+import { conexionBD } from './data/db.js';
 
 
 const app = express();
@@ -19,7 +21,7 @@ app.use(express.json()); // Para parsear JSON en el body
 
 
 // app.use('/api', usuarioRoutes);
-// app.use('/api', academiaRoutes);
+ app.use('/api', routerAcademias);
 // app.use('/api', cursoRoutes);
 // app.use('/api', categoriaRoutes);
 
@@ -34,6 +36,15 @@ app.use((req, res) => {
 });
 
 // Iniciar el servidor
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+conexionBD()
+    .then(()=>{
+        app.listen(PORT, ()=>{
+            console.log(`Servidor corriendo en http://localhost:${PORT}`);
+        })
+    })
+    .catch (err=>{
+        console.log('No se pudo iniciar el servidor', err.message);
+        process.exit(1); //salir si no ha conexión
+    })
+
+
