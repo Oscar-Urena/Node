@@ -16,4 +16,8 @@ export const Categoria = mongoose.model('categoria', new mongoose.Schema({
         maxlength: [500, 'La descripción debe tener como máximo 500 caracteres'],
         trim: true
     }
+}, {
+    timestamps: false,
+    collection: 'categoria',
+    versionKey: false
 }))

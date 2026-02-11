@@ -1,16 +1,23 @@
 import express from 'express';
+import cookieParser from 'cookie-parser'
 
 import cors from 'cors';
 
+import { cursosRoutes } from './routes/cursos.route.js';
+// import { modulosRoutes } from './routes/modulos.route.js';
+import { alumnosRoutes } from './routes/alumnos.route.js';
+import {usuariosRoutes} from './routes/usuarios.route.js';
+import {authRoutes} from './routes/auth.route.js'
+// import { calificacionesRoutes } from './routes/calificaciones.route.js';
+
+import { conexionBD } from './data/db.js';
 
 import {PORT} from './config.js'
-import { routerAcademias } from './router/academia.router.js';
-import { routerCategorias} from './router/categoria.router.js';
-import { conexionBD } from './data/db.js';
-import { routerCursos } from './router/curso.router.js';
+import { cookie } from 'express-validator';
 
 
 const app = express();
+
 
 const corsOption ={
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
@@ -18,14 +25,16 @@ const corsOption ={
     credentials: true
 }
 app.use(cors(corsOption)); //habilitar cors
-
+app.use(cookieParser()); //Para poder leer cookies automáticamente
 app.use(express.json()); // Para parsear JSON en el body
 
-
-// app.use('/api', usuarioRoutes);
- app.use('/api', routerAcademias);
- app.use('/api', routerCursos);
-app.use('/api', routerCategorias);
+// Usar las rutas directas); // No necesitas añadir un prefijo aquí
+app.use('/api', cursosRoutes);
+// app.use('/api', modulosRoutes);
+app.use('/api', alumnosRoutes);
+app.use('/api', usuariosRoutes);
+app.use('/api', authRoutes);
+// app.use('/api', calificacionesRoutes);
 
 app.get('/', (req, res) => {
     res.json({

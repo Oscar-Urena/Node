@@ -13,7 +13,7 @@ const cursosAcademiaSchema = new mongoose.Schema({
         required: [true, 'El precio es obligatorio'],
         min: [0, 'El precio no puede ser negativo']
     }
-});
+}, {_id:false});
 
 const academiaSchema = new mongoose.Schema({
     nombre: {

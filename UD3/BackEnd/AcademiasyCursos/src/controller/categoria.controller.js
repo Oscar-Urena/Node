@@ -1,12 +1,14 @@
 "use strict";
 
+import { Categoria } from "../models/categoria.model.js";
+
 export const getCategorias = async (req, res) => {
     try {
-        const response = await Academia.find();
+        const response = await Categoria.find();
         console.log(response);
-        res.status(200).json({ data: response.data });
+        res.status(200).json({ data: response });
     } catch (error) {
-        res.status(500).json({ message: "Error al obtener alumnos", error: error.message });
+        res.status(500).json({ message: "Error al obtener categoria", error: error.message });
     }
 };
 
