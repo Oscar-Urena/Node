@@ -6,7 +6,7 @@ const router = Router();
 
 router.get("/categoria", X.getCategorias);
 
-router.get("/categoria/:id", X.getCategoria);
+router.get("/categoria/:nombre", X.getCategoria);
 
 router.post("/categoria", X.postCategoria);
 

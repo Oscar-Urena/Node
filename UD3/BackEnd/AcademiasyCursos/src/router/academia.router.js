@@ -22,6 +22,6 @@ router.put("/academia/:_id", X.updateAcademia);
 
 router.delete("/academia/:id", X.deleteAcademia);
 
-router.delete("/academia/:id/cursos/:cursoId", X.deleteCursoAcademia);
+router.delete("/academia/:id/cursos/:cursoId", X.deleteCursoFromAcademia);
 
 export { router as routerAcademias };

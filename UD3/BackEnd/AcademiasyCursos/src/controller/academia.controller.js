@@ -156,15 +156,39 @@ export const deleteAcademia = async (req, res) => {
                 message: "La academia introducida no existe"
             })
         }
+        res.status(200).json({ message: "Academia eliminada" })
     } catch (error) {
         res.status(500).json({ error });
     }
 };
 
-export const deleteCursoAcademia = async (req, res) => {
+export const deleteCursoFromAcademia = async (req, res) => {
     try {
-        
+        const { nombre, titulo } = req.params;
+
+        const academia = await Academia.findOneAndUpdate(
+            { nombre: nombre },
+            {
+                $pull: {
+                    curso: { titulo: titulo }
+                }
+            },
+            { new: true }
+        );
+        if (!academia) {
+            return res.status(404).json({
+                message: "Academia no encontrada"
+            });
+        }
+        res.status(200).json({
+            message: "Curso eliminado exitosamente",
+            cursos: academia.curso
+        });
+
     } catch (error) {
-        
+        res.status(500).json({
+            message: "Error al eliminar curso",
+            error: error.message
+        });
     }
 };
