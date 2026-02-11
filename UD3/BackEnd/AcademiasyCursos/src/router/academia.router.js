@@ -14,14 +14,14 @@ router.get("/academia/:nombre/cursos", X.getCursosFromAcademia);
 
 router.post("/academia", X.postAcademia);
 
-// router.post("/academia/:id/cursos", X.addCursoToAcademia);
+router.post("/academia/:nombre/cursos", X.addCursoToAcademia);
 
-// router.put("/academia/:id/cursos/:cursoId", X.updateCursoAcademia);
-
-// router.delete("/academia/:id/cursos/:cursoId", X.deleteCursoAcademia);
+router.put("/academia/:id/cursos/:cursoId", X.updateCursoAcademia);
 
 router.put("/academia/:_id", X.updateAcademia);
 
-// router.delete("/academia/:id", X.deleteAcademia);
+router.delete("/academia/:id", X.deleteAcademia);
+
+router.delete("/academia/:id/cursos/:cursoId", X.deleteCursoAcademia);
 
 export { router as routerAcademias };

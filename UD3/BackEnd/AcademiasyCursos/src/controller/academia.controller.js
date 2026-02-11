@@ -70,12 +70,22 @@ export const addCursoToAcademia = async (req, res) => {
         const { nombre } = req.params;
         const { titulo, precio } = req.body;
         const response = await Curso.findOne({ titulo });
-        if(!response){
-            return res.status(401).json({message: "No está ese curso registrado en nuesta BBDD"});
+        if (!response) {
+            return res.status(401).json({ message: "No está ese curso registrado en nuesta BBDD" });
         }
-        const response1 = await Academia.findOne({ nombre });
+        const response1 = await Academia.findOneAndUpdate(
+            { nombre },
+            {
+                $push: {
+                    curso: {
+                        titulo,
+                        precio
+                    }
+                }
+            }
+        );
         if (!response1) {
-            return res.status(201).json({ message: "No se encuentra esa academia" })
+            return res.status(401).json({ message: "No se encuentra esa academia" })
         }
 
         res.status(200).json({ cursos: response1.curso });
@@ -109,7 +119,31 @@ export const updateAcademia = async (req, res) => {
 
 
 export const updateCursoAcademia = async (req, res) => {
+    try {
+        const { nombre } = req.params;
+        const { titulo, nuevoTitulo, precio } = req.body;
+        const response1 = await Academia.findOneAndUpdate(
+            {
+                nombre,
+                "curso.titulo": titulo
+            },
+            {
+                $set: {
+                    curso: {
+                        "curso.$.titulo": nuevoTitulo,
+                        "curso.$.titulo": precio
+                    }
+                }
+            }
+        );
+        if (!response1) {
+            return res.status(401).json({ message: "No se encuentra esa academia o curso" })
+        }
 
+        res.status(200).json({ cursos: response1.curso });
+    } catch (error) {
+        res.status(500).json({ message: "Error al obtener alumnos", error: error.message });
+    }
 };
 
 
@@ -128,5 +162,9 @@ export const deleteAcademia = async (req, res) => {
 };
 
 export const deleteCursoAcademia = async (req, res) => {
-
+    try {
+        
+    } catch (error) {
+        
+    }
 };
