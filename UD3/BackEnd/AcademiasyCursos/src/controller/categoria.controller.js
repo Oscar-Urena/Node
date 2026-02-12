@@ -26,8 +26,8 @@ export const postCategoria = async (req, res) => {
         const { nombre, descripcion } = req.body;
 
         const existe = await Categoria.findOne({ nombre });
-        if(existe){
-            return res.status(400).json({message: "La categoría ya está en nuestro sistema", data: existe})
+        if (existe) {
+            return res.status(400).json({ message: "La categoría ya está en nuestro sistema", data: existe })
         }
         const categoriaNueva = await Categoria.create({
             nombre,
@@ -38,13 +38,29 @@ export const postCategoria = async (req, res) => {
             message: "Categoría creada",
             data: categoriaNueva
         })
-
-
-    }catch(error){
-        res.status(500).json({error: error.message})
+    } catch (error) {
+        res.status(500).json({ error: error.message })
     }
 };
 
-export const updateCategoria = (req, res) => { };
+export const updateCategoria = (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const respuesta = Categoria.findByIdAndUpdate(id, req.body, {
+            new: true,
+            runValidators: true
+            
+        });
+        if (!resultado){
+            return res.status(400).json({
+                message: "Curso actualizado",
+                data: resultado
+            })
+        }
+    } catch (error) {
+
+    }
+};
 
 export const deleteCategoria = (req, res) => { };
