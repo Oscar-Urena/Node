@@ -52,15 +52,37 @@ export const updateCategoria = (req, res) => {
             runValidators: true
             
         });
-        if (!resultado){
+        if (!respuesta){
             return res.status(400).json({
-                message: "Curso actualizado",
-                data: resultado
+                message: "Categoría actualizada",
+                data: respuesta
             })
         }
     } catch (error) {
-
+        res.status(500).json({
+            message: error.message
+        })
     }
 };
 
-export const deleteCategoria = (req, res) => { };
+export const deleteCategoria = (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const respuesta = Categoria.findByIdAndDelete(id, {
+            new: true,
+            runValidators: true
+            
+        });
+        if (!respuesta){
+            return res.status(400).json({
+                message: "Curso actualizado",
+                data: respuesta
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+};
