@@ -13,9 +13,7 @@ const validationErrors = (req, res, next) => {
 // Validación de ID en parámetros de ruta
 export const validarId = [
     param('id')
-        .notEmpty().withMessage("El ID es requerido"),
-        
-    
+        .notEmpty().withMessage("El ID es requerido"),    
     validationErrors //No lleva paréntesis porque Express necesita la función en sí, no el resultado de ejecutarla. Express la ejecutará más tarde cuando llegue una petición.
 ];
 

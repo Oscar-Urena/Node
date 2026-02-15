@@ -6,7 +6,7 @@ import { Curso } from '../models/curso.model.js';
 export const getAcademias = async (req, res) => {
     try {
         const response = await Academia.find();
-        res.status(200).json({ data: response });
+        res.status(200).json({ data: response});
     } catch (error) {
         res.status(500).json({ message: "Error al obtener alumnos", error: error.message });
     }
