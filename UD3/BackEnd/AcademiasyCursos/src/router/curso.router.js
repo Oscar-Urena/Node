@@ -5,7 +5,7 @@ import { validarCurso, validarIDCruso } from "../validators/cursos.validators.js
 
 const router = Router();
 
-router.get("/curso", X.getCursos);
+router.get("/cursos", X.getCursos);
 
 router.get("/curso/:titulo", X.getCurso);
 

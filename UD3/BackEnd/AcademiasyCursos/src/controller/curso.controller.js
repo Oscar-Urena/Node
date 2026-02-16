@@ -2,11 +2,11 @@
 
 import { Curso } from "../models/curso.model.js";
 
-export const getCursos = (req, res) => {
+export const getCursos = async (req, res) => {
     try {
-        const response = Curso.find();
+        const response = await Curso.find();
         res.status(200).json({
-            data: response.data
+            data: response
         })
     } catch (error) {
         res.status(500).json({ message: "Error al obtener categoria", error: error.message });

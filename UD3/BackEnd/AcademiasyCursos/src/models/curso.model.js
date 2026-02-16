@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { Categoria } from "./categoria.model.js";
 
 
-export const Curso = mongoose.model('curso', new mongoose.Schema({
+export const Curso = mongoose.model('cursos', new mongoose.Schema({
     titulo: {
         type: String,
         required: [true, 'El nombre es obligatorio'],
@@ -25,4 +25,8 @@ export const Curso = mongoose.model('curso', new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'categoria'
     }
+},{
+    timestamps:false,
+    collection: 'cursos',
+    versionKey: false
 }));

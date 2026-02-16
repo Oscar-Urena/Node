@@ -44,7 +44,7 @@ export const postAcademia = async (req, res) => {
         const academiaExisteNombre = await Academia.findOne({ nombre });
         const academiaExisteDireccion = await Academia.findOne({ direccion });
         if (academiaExisteNombre && academiaExisteDireccion) {
-            if (academiaExisteDireccion._id == academiaExisteNombre._id) {
+            if (academiaExisteDireccion._id.equals(academiaExisteNombre._id)) {
                 return res.status(403).json({
                     message: "Esta academia ya está registrada en nuestro sistema"
                 })
@@ -53,7 +53,7 @@ export const postAcademia = async (req, res) => {
         const nuevaAcademia = await Academia.create({
             nombre,
             direccion,
-            cursos
+            curso: cursos
         })
         console.log(nuevaAcademia);
         res.status(200).json({
@@ -88,7 +88,7 @@ export const addCursoToAcademia = async (req, res) => {
             return res.status(401).json({ message: "No se encuentra esa academia" })
         }
 
-        res.status(200).json({ cursos: response1.curso });
+        res.status(200).json({ cursos: response1 });
     } catch (error) {
         res.status(500).json({ message: "Error al obtener alumnos", error: error.message });
     }
@@ -166,7 +166,7 @@ export const deleteCursoFromAcademia = async (req, res) => {
     try {
         const { nombre, titulo } = req.params;
 
-        const academia = await Academia.findOneAndUpdate(
+        const academia = await Academia.findOneAndDelete(
             { nombre: nombre },
             {
                 $pull: {
